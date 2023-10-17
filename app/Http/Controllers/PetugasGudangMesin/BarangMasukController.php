@@ -1,22 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\PetugasGudangMesin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\BarangMasuk;
-use App\DataBarangJurusan;
+use App\Model\Mesin\BarangMasuk;
+use App\Model\Mesin\DataBarang;
 
-class BarangMasukJurusanController extends Controller
+
+class BarangMasukController extends Controller
 {
-
     public function read()
     {
-        $barangmasukjurusan = DB::table('dbmas_ti')->orderBy('id', 'DESC')->get();
-        return view('dashboard.barangmasukjurusan.index', ['barangmasukjurusan' => $barangmasukjurusan]);
+        $barangmasuk = DB::table('dbmas_mesin')->orderBy('id', 'DESC')->get();
+        return view('dashboard.mesin.barangmasuk.index', ['barangmasuk' => $barangmasuk]);
     }
-
 
     public function terima($id)
     {
@@ -25,7 +23,7 @@ class BarangMasukJurusanController extends Controller
 
             if ($barangMasuk) {
                 // Buat data baru dalam tabel 'data barang masuk jurusan'
-                DataBarangJurusan::create([
+                DataBarang::create([
                     // 'id' => $barangMasuk->id,
                     'namabarang' => $barangMasuk->namabarang,
                     'id_tipe' => $barangMasuk->id_tipe,
@@ -36,6 +34,7 @@ class BarangMasukJurusanController extends Controller
                     'id_jenisbarang' => $barangMasuk->id_jenisbarang,
                     // Tambahkan kolom-kolom lain yang perlu diisi
                 ]);
+                // dd($barangMasuk);
 
                 // // Hapus data dari tabel 'barang masuk'
                 // $barangMasuk->delete();
@@ -46,12 +45,13 @@ class BarangMasukJurusanController extends Controller
             // Jika terjadi kesalahan, set pesan flash error dengan pesan kesalahan
             // return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Sudah di Inputkan.');
+            // dd($e->getMessage());
         }
     }
 
-    public function databarangti()
+    public function databarangmesin()
     {
-        $databarangti = DB::table('db_ti')->orderBy('id', 'DESC')->get();
-        return view('dashboard.databarangti.index', ['databarangti' => $databarangti]);
+        $databarangmesin = DB::table('db_mesin')->orderBy('id', 'DESC')->get();
+        return view('dashboard.mesin.databarang.index', ['databarangmesin' => $databarangmesin]);
     }
 }

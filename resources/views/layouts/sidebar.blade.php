@@ -42,12 +42,12 @@
 <body class="animsition">
     <div class="page-wrapper">
         <!-- HEADER MOBILE-->
-        <header class="header-mobile d-block d-lg-none">
+        {{-- <header class="header-mobile d-block d-lg-none">
             <div class="header-mobile__bar">
                 <div class="container-fluid">
                     <div class="header-mobile-inner">
                         <a class="logo" href="index.html">
-                            {{-- <img src="images/icon/logo.png" alt="CoolAdmin" /> --}}
+                            {{-- <img src="images/icon/logo.png" alt="CoolAdmin" />
                             <h1>Inventory</h1>
                         </a>
                         <button class="hamburger hamburger--slider" type="button">
@@ -57,8 +57,8 @@
                         </button>
                     </div>
                 </div>
-            </div>
-            <nav class="navbar-mobile">
+            </div> --}}
+        {{-- <nav class="navbar-mobile">
                 <div class="container-fluid">
                     <ul class="navbar-mobile__list list-unstyled">
                         <li class="has-sub">
@@ -151,11 +151,11 @@
                                 <li>
                                     <a href="typo.html">Typography</a>
                                 </li> --}}
-                    </ul>
+        {{-- </ul>
                     </li>
                     </ul>
                 </div>
-            </nav>
+            </nav> --}}
         </header>
         <!-- END HEADER MOBILE-->
 
@@ -170,9 +170,11 @@
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
+
                         <li class="nav-item @if ($activePage == 'dashboard') active @endif">
                             <a class="js-arrow" href="/home">
-                                <i class="fas fa-tachometer-alt"></i>Dashboard</a>
+                                <i class="fas fa-home"></i>Dashboard</a>
+
                             {{-- <ul class="list-unstyled navbar__sub-list js-sub-list">
                                 <li>
                                     <a href="index.html">Dashboard 1</a>
@@ -188,98 +190,120 @@
                                 </li>
                             </ul> --}}
                         </li>
-                        <li class="nav-item @if ($activePage == 'supplier') active @endif">
-                            <a href="{{ url('/supplier') }}">
-                                <i class="fas fa-chart-bar"></i>Supplier</a>
-                        </li>
-                        <li class="nav-item @if ($activePage == 'barang') active @endif">
-                            <a class="js-arrow" href="#">
-                                <i class="fas fa-tachometer-alt"></i>Barang</a>
-                            <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                {{-- <li>
-                                    <a href="{{ url('/jenis') }}">Jenis</a>
-                                </li> --}}
-                                <li>
-                                    <a href="{{ url('/satuan') }}">Satuan</a>
-                                </li>
-                                <li>
-                                    <a href="{{ url('/tipe') }}">Merk / Type</a>
-                                </li>
 
 
-                                <li>
-                                    <a href="{{ url('/databarang') }}">Data Barang Total</a>
+                        @if (auth()->check() && auth()->user()->role)
+                            <!-- Pastikan objek relasi 'role' ada -->
+                            @if (auth()->user()->role->namarole === 'Administrator')
+                                <li class="nav-item @if ($activePage == 'supplier') active @endif">
+                                    <a href="{{ url('/supplier') }}">
+                                        <i class="	fas fa-address-card"></i>Supplier</a>
                                 </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item @if ($activePage == 'jurusan') active @endif">
-                            <a href="{{ url('/jurusan') }}">
-                                <i class="fas fa-chart-bar"></i>Data Jurusan</a>
-                        </li>
-                        <li class="nav-item @if ($activePage == 'petugasgudangti') active @endif">
-                            <a class="js-arrow" href="#">
-                                <i class="fas fa-tachometer-alt"></i>Gudang TI</a>
-                            <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                {{-- <li>
+                                <li class="nav-item @if ($activePage == 'barang') active @endif">
+                                    <a class="js-arrow" href="#">
+                                        <i class="fas fa-folder"></i>Barang</a>
+                                    <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                        {{-- <li>
                                     <a href="{{ url('/jenis') }}">Jenis</a>
                                 </li> --}}
-                                <li>
-                                    <a href="{{ url('/databarang/ti') }}">Data Barang TI</a>
+                                        <li>
+                                            <a href="{{ url('/satuan') }}">Satuan</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ url('/tipe') }}">Merk / Type</a>
+                                        </li>
+
+
+                                        <li>
+                                            <a href="{{ url('/databarang') }}">Data Barang Total</a>
+                                        </li>
+                                    </ul>
                                 </li>
-                                <li>
-                                    <a href="{{ url('/barangmasukjurusan/ti') }}">Barang Masuk TI</a>
+                                <li class="nav-item @if ($activePage == 'jurusan') active @endif">
+                                    <a href="{{ url('/jurusan') }}">
+                                        <i class="fas fa-chart-bar"></i>Data Jurusan</a>
                                 </li>
-                                <li>
-                                    <a href="{{ url('/barangkeluar/ti') }}">Barang Keluar TI</a>
+                                <li class="nav-item @if ($activePage == 'cetak') active @endif">
+                                    <a href="{{ url('/cetak') }}">
+                                        <i class="far fa-edit"></i>Cetak Laporan</a>
                                 </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item @if ($activePage == 'petugasgudangmesin') active @endif">
-                            <a class="js-arrow" href="#">
-                                <i class="fas fa-tachometer-alt"></i>Gudang Mesin</a>
-                            <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                {{-- <li>
+                                <li class="nav-item @if ($activePage == 'user') active @endif">
+                                    <a class="js-arrow" href="#">
+                                        <i class="fas fa-user-circle"></i>User</a>
+                                    <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                        <li>
+                                            <a href="{{ url('/role') }}">Role</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ url('/user') }}">Data User</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            @elseif (auth()->user()->role->namarole === 'Simak BMN')
+                                <li class="nav-item @if ($activePage == 'barangmasuk') active @endif">
+                                    <a class="js-arrow" href="#">
+                                        <i class="fas fa-universal-access"></i>SIMAK BMN</a>
+                                    <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                        {{-- <li>
                                     <a href="{{ url('/jenis') }}">Jenis</a>
                                 </li> --}}
-                                <li>
-                                    <a href="{{ url('/databarang') }}">Data Barang</a>
+                                        <li>
+                                            <a href="{{ url('/barangmasuk') }}">Barang Masuk</a>
+                                        </li>
+                                    </ul>
                                 </li>
-                                <li>
-                                    <a href="{{ url('/barangmasukjurusan') }}">Barang Masuk</a>
-                                </li>
-                                <li>
-                                    <a href="{{ url('/barangkeluar') }}">Barang Keluar</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item @if ($activePage == 'barangmasuk') active @endif">
-                            <a class="js-arrow" href="#">
-                                <i class="fas fa-tachometer-alt"></i>SIMAK BMN</a>
-                            <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                {{-- <li>
+                            @elseif (auth()->user()->role->namarole === 'Kasubag TU')
+
+                            @elseif (auth()->user()->role->namarole === 'Petugas Gudang Mesin')
+                                <li class="nav-item @if ($activePage == 'petugasgudangmesin') active @endif">
+                                    <a class="js-arrow" href="#">
+                                        <i class="far fa-folder"></i>Gudang Mesin</a>
+                                    <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                        {{-- <li>
                                     <a href="{{ url('/jenis') }}">Jenis</a>
                                 </li> --}}
-                                <li>
-                                    <a href="{{ url('/barangmasuk') }}">Barang Masuk</a>
+                                        <li>
+                                            <a href="{{ url('/databarang/mesin') }}">Data Barang Mesin</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ url('/barangmasuk/mesin') }}">Barang Masuk Mesin</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ url('/barangkeluar/mesin') }}">Barang Keluar Mesin</a>
+                                        </li>
+                                    </ul>
                                 </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item @if ($activePage == 'cetak') active @endif">
-                            <a href="{{ url('/cetak') }}">
-                                <i class="fas fa-chart-bar"></i>Cetak Laporan</a>
-                        </li>
-                        <li class="nav-item @if ($activePage == 'user') active @endif">
-                            <a class="js-arrow" href="#">
-                                <i class="fas fa-chart-bar"></i>User</a>
-                            <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li>
-                                    <a href="{{ url('/role') }}">Role</a>
+                            @elseif (auth()->user()->role->namarole === 'Petugas Gudang Sipil')
+
+                            @elseif (auth()->user()->role->namarole === 'Petugas Gudang Elektro')
+
+                            @elseif (auth()->user()->role->namarole === 'Petugas Gudang Adm Niaga')
+
+                            @elseif (auth()->user()->role->namarole === 'Petugas Gudang Akuntansi')
+
+                            @elseif (auth()->user()->role->namarole === 'Petugas Gudang Ti')
+                                <li class="nav-item @if ($activePage == 'petugasgudangti') active @endif">
+                                    <a class="js-arrow" href="#">
+                                        <i class="far fa-folder"></i>Gudang TI</a>
+                                    <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                        {{-- <li>
+                                    <a href="{{ url('/jenis') }}">Jenis</a>
+                                </li> --}}
+                                        <li>
+                                            <a href="{{ url('/databarang/ti') }}">Data Barang TI</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ url('/barangmasukjurusan/ti') }}">Barang Masuk TI</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ url('/barangkeluar/ti') }}">Barang Keluar TI</a>
+                                        </li>
+                                    </ul>
                                 </li>
-                                <li>
-                                    <a href="{{ url('/user') }}">Data User</a>
-                                </li>
-                            </ul>
-                        </li>
+                            @elseif (auth()->user()->role->namarole === 'Petugas Gudang Bing')
+                            @endif
+                        @endif
+
 
                         {{-- <li>
                             <a href="table.html">

@@ -7,6 +7,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
+use App\Role;
+
 
 class User extends Authenticatable
 {
@@ -18,8 +20,14 @@ class User extends Authenticatable
      *
      * @var array
      */
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'id_role');
+    }
+
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'id_role'
     ];
 
     /**

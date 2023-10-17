@@ -1,4 +1,4 @@
-@include('layouts.sidebar', ['activePage' => 'petugasgudangti'])
+@include('layouts.sidebar', ['activePage' => 'petugasgudangmesin'])
 
 @section('user')
 
@@ -8,23 +8,11 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="overview-wrap">
-                            <h2 class="title-1">Data Barang Masuk Jurusan</h2>
+                            <h2 class="title-1">Data Barang Jurusan Mesin</h2>
+
                         </div>
                     </div>
                 </div>
-                <br>
-                @if (session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                @endif
-
-                @if (session('error'))
-                    <div class="alert alert-danger">
-                        {{ session('error') }}
-                    </div>
-                @endif
-
 
                 <!-- DATA TABLE-->
                 <div class="row m-t-25">
@@ -38,15 +26,15 @@
                                     <th>
                                         <center>nama barang</center>
                                     </th>
-                                    {{-- <th>
+                                    <th>
                                         <center>tipe</center>
-                                    </th> --}}
+                                    </th>
                                     <th>
                                         <center>kode barang</center>
                                     </th>
-                                    {{-- <th>
+                                    <th>
                                         <center>tahun perolehan</center>
-                                    </th> --}}
+                                    </th>
                                     <th>
                                         <center>jumlah</center>
                                     </th>
@@ -56,9 +44,7 @@
                                     <th>
                                         <center>jenis barang</center>
                                     </th>
-                                    <th>
-                                        <center>status</center>
-                                    </th>
+
                                     <th>
 
                                     </th>
@@ -66,9 +52,9 @@
                             </thead>
                             <tbody>
                                 <?php $no = 1; ?>
-                                @foreach ($barangmasukjurusan as $data)
+                                @foreach ($databarangmesin as $data)
                                     <?php
-                                    // $tb = DB::table('tipe')->find($data->id_tipe);
+                                    $tb = DB::table('tipe')->find($data->id_tipe);
                                     $sat = DB::table('satuan')->find($data->id_satuan);
                                     $jb = DB::table('jenisbarang')->find($data->id_jenisbarang);
                                     ?>
@@ -79,15 +65,15 @@
                                         <td>
                                             <center>{{ $data->namabarang }}</center>
                                         </td>
-                                        {{-- <td>
+                                        <td>
                                             <center>{{ $tb->namatipe }}</center>
-                                        </td> --}}
+                                        </td>
                                         <td>
                                             <center>{{ $data->kodebarang }}</center>
                                         </td>
-                                        {{-- <td>
+                                        <td>
                                             <center>{{ $data->tahunperolehan }}</center>
-                                        </td> --}}
+                                        </td>
                                         <td>
                                             <center>{{ $data->jumlah }}</center>
                                         </td>
@@ -97,22 +83,7 @@
                                         <td>
                                             <center>{{ $jb->jenisbarang }}</center>
                                         </td>
-                                        <td>
-                                            <div class="table-data-feature">
-                                                <a href="/admin/terimabarangmasuk/{{ $data->id }}">
-                                                    <button class="item" data-toggle="tooltip" data-placement="top"
-                                                        title="Terima">
-                                                        <i class="zmdi zmdi-upload"></i>
-                                                    </button>
-                                                </a>
-                                                <a href="#">
-                                                    <button class="item" data-toggle="tooltip" data-placement="top"
-                                                        title="Tolak">
-                                                        <i class="zmdi zmdi-minus-circle"></i>
-                                                    </button>
-                                                </a>
-                                            </div>
-                                        </td>
+
                                         <td>
                                             <div class="table-data-feature">
                                                 <a href="/admin/supplier/edit/{{ $data->id }}">

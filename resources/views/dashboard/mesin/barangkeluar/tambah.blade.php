@@ -20,7 +20,7 @@
                                 <div class="card-header">
                                     <strong>Tambah</strong> Barang Keluar
                                 </div>
-                                <form action="/admin/barangkeluar/ti/create" method="post" class="form-horizontal">
+                                <form action="/admin/barangkeluar/mesin/create" method="post" class="form-horizontal">
                                     <div class="card-body card-block">
                                         {{ csrf_field() }}
 
@@ -183,7 +183,7 @@
 
                                             if (id_kodebarang) {
                                                 $.ajax({
-                                                    url: '{{ route('get.barang') }}', // Sesuaikan dengan rute yang Anda miliki
+                                                    url: '{{ route('get.barang.mesin') }}', // Sesuaikan dengan rute yang Anda miliki
                                                     type: 'POST',
                                                     data: {
                                                         id_kodebarang: id_kodebarang,

@@ -19,17 +19,19 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('id_role')->nullable();
+            $table->unsignedBigInteger('id_role');
             $table->string('id_jurusan')->nullable();
             $table->rememberToken();
             $table->timestamps();
+
+            $table->foreign('id_role')->references('id')->on('roles');
         });
 
-        DB::table('users')->insert([
-            ['name' => 'Administrator', 'email' => 'admin@tugasakhir.com', 'password' => bcrypt('Admin2023'), 'id_role' => '1', 'id_jurusan' => ''],
-            ['name' => 'Petugas Gudang', 'email' => 'petugasgudang@tugasakhir.com', 'password' => bcrypt('Pg2023'), 'id_role' => '2', 'id_jurusan' => ''],
+        // DB::table('users')->insert([
+        //     ['name' => 'Administrator', 'email' => 'admin@tugasakhir.com', 'password' => bcrypt('Admin2023'), 'id_role' => '1', 'id_jurusan' => ''],
+        //     ['name' => 'Petugas Gudang', 'email' => 'petugasgudang@tugasakhir.com', 'password' => bcrypt('Pg2023'), 'id_role' => '2', 'id_jurusan' => ''],
 
-        ]);
+        // ]);
     }
 
     /**

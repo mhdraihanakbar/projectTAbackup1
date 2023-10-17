@@ -1,4 +1,4 @@
-@include('layouts.sidebar', ['activePage' => 'petugasgudangti'])
+@include('layouts.sidebar', ['activePage' => 'petugasgudangmesin'])
 
 @section('user')
 
@@ -8,23 +8,26 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="overview-wrap">
-                            <h2 class="title-1">Data Barang Masuk Jurusan</h2>
+                            <h2 class="title-1">Data Barang Keluar Jurusan Mesin</h2>
+                            <a href="/admin/barangkeluar/mesin/add">
+                                <button type="button" class="au-btn au-btn-icon au-btn--blue">
+                                    <i class="zmdi zmdi-plus"></i>add item</button>
+                            </a>
                         </div>
+                        <br>
+                        @if (session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+
+                        @if (session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
                     </div>
                 </div>
-                <br>
-                @if (session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                @endif
-
-                @if (session('error'))
-                    <div class="alert alert-danger">
-                        {{ session('error') }}
-                    </div>
-                @endif
-
 
                 <!-- DATA TABLE-->
                 <div class="row m-t-25">
@@ -48,29 +51,35 @@
                                         <center>tahun perolehan</center>
                                     </th> --}}
                                     <th>
-                                        <center>jumlah</center>
+                                        <center>jumlah pengeluaran</center>
                                     </th>
                                     <th>
+                                        <center>sisa stok</center>
+                                    </th>
+                                    {{-- <th>
                                         <center>satuan</center>
-                                    </th>
-                                    <th>
+                                    </th> --}}
+                                    {{-- <th>
                                         <center>jenis barang</center>
-                                    </th>
-                                    <th>
-                                        <center>status</center>
-                                    </th>
-                                    <th>
+                                    </th> --}}
+                                    <th></th>
 
-                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php $no = 1; ?>
-                                @foreach ($barangmasukjurusan as $data)
+                                @foreach ($dbkel_mesin as $data)
                                     <?php
                                     // $tb = DB::table('tipe')->find($data->id_tipe);
-                                    $sat = DB::table('satuan')->find($data->id_satuan);
+                                    // $sat = DB::table('satuan')->find($data->id_satuan);
+                                    // $stok = DB::table('dbmas_ti')->find($data->sisastok);
                                     $jb = DB::table('jenisbarang')->find($data->id_jenisbarang);
+                                    $kb = DB::table('db_mesin')->find($data->id_kodebarang);
+                                    $idBarangMesin = $data->id_kodebarang;
+                                    $jumlah = DB::table('db_mesin')
+                                        ->where('id', $idBarangMesin)
+                                        ->value('jumlah');
+
                                     ?>
                                     <tr>
                                         <td>
@@ -83,36 +92,21 @@
                                             <center>{{ $tb->namatipe }}</center>
                                         </td> --}}
                                         <td>
-                                            <center>{{ $data->kodebarang }}</center>
+                                            <center>{{ $kb->kodebarang }}</center>
                                         </td>
                                         {{-- <td>
                                             <center>{{ $data->tahunperolehan }}</center>
                                         </td> --}}
                                         <td>
-                                            <center>{{ $data->jumlah }}</center>
+                                            <center>{{ $data->jumlah_pengeluaran }}</center>
                                         </td>
                                         <td>
-                                            <center>{{ $sat->namasatuan }}</center>
+                                            <center>{{ $jumlah }}</center>
                                         </td>
-                                        <td>
+
+                                        {{-- <td>
                                             <center>{{ $jb->jenisbarang }}</center>
-                                        </td>
-                                        <td>
-                                            <div class="table-data-feature">
-                                                <a href="/admin/terimabarangmasuk/{{ $data->id }}">
-                                                    <button class="item" data-toggle="tooltip" data-placement="top"
-                                                        title="Terima">
-                                                        <i class="zmdi zmdi-upload"></i>
-                                                    </button>
-                                                </a>
-                                                <a href="#">
-                                                    <button class="item" data-toggle="tooltip" data-placement="top"
-                                                        title="Tolak">
-                                                        <i class="zmdi zmdi-minus-circle"></i>
-                                                    </button>
-                                                </a>
-                                            </div>
-                                        </td>
+                                        </td> --}}
                                         <td>
                                             <div class="table-data-feature">
                                                 <a href="/admin/supplier/edit/{{ $data->id }}">

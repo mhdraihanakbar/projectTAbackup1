@@ -137,8 +137,11 @@ class BarangKeluarController extends Controller
     public function create(Request $request)
     {
         try {
+
             $id_kodebarang = $request->input('id_kodebarang');
             $barang = DataBarangJurusan::find($id_kodebarang);
+
+
 
             if (!$barang) {
                 return response()->json(['namabarang' => 'Barang tidak ditemukan']);
@@ -149,18 +152,37 @@ class BarangKeluarController extends Controller
                 'jumlah_pengeluaran' => 'required',
             ]);
 
+
+
             // Set nilai autofill
             $request->merge(['namabarang' => $barang->namabarang]);
 
+            // Ambil stok awal dari db_ti
+            $stok_awal = $barang->jumlah;
+
+            // dd($request->all(), $barang);
+
             // Buat data BarangKeluar
             BarangKeluar::create($request->all());
+
+
 
             // Kurangi stok
             $stok = DataBarangJurusan::findOrFail($request->id_kodebarang);
             $stok->jumlah -= $request->jumlah_pengeluaran;
             $stok->save();
 
-            return redirect('/barangkeluar/ti')->with("success", "Data Berhasil Ditambah !");
+            // dd('Stok setelah pengurangan:', $stok);
+
+            // Update sisastok di dbkel_ti
+            $dbkel_ti = DB::table('dbkel_ti')->where('id_kodebarang', $request->id_kodebarang)->first();
+            if ($dbkel_ti) {
+                $dbkel_ti->sisastok = $stok_awal - $request->jumlah_pengeluaran;
+                DB::table('dbkel_ti')->where('id_kodebarang', $request->id_kodebarang)->update(['sisastok' => $dbkel_ti->sisastok]);
+            }
+
+
+            return redirect('/barangkeluar/ti')->with("success", "Data Pengeluaran Barang Dicatat !");
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }

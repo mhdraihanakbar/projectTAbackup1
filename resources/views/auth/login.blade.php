@@ -143,36 +143,38 @@
                         </span>
                     </div>
                     <div class="wrap-input100 validate-input" data-validate="Username is required">
-                        <input class="input100" type="email" id="email" @error('email') is-invalid @enderror"
-                            name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                        <input class="input100" type="email" id="email" name="email" value="{{ old('email') }}"
+                            required autocomplete="email" autofocus>
                         <span class="focus-input100"></span>
-                        @error('email')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
                     </div>
+                    <span class="txt1">
+                        @error('email')
+                            <strong>{{ $message }}</strong>
+                        @enderror
+                    </span>
+
 
                     <div class="p-t-13 p-b-9">
-                        <span class="txt1">
+                        <span class="txt1"><br>
                             {{ __('Password') }}
                         </span>
+
 
                         {{-- <a href="#" class="txt2 bo1 m-l-5">
                             Forgot?
                         </a> --}}
                     </div>
                     <div class="wrap-input100 validate-input" data-validate="Password is required">
-                        <input id="password" class="input100" type="password" @error('password') is-invalid @enderror"
-                            name="password" required autocomplete="current-password">
-
-                        @error('password')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
+                        <input id="password" class="input100" type="password" name="password" required
+                            autocomplete="current-password">
                         <span class="focus-input100"></span>
                     </div>
+                    <span class="txt1">
+                        @error('password')
+                            <strong>{{ $message }}</strong>
+                        @enderror
+                    </span>
+
 
 
 

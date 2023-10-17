@@ -1,16 +1,16 @@
 <?php
 
-namespace App;
+namespace App\Model\Mesin;
 
 use Illuminate\Database\Eloquent\Model;
 
-class DataBarangJurusan extends Model
+class DataBarang extends Model
 {
-    protected $table = 'db_ti';
+    protected $table = 'db_mesin';
     protected $guarded = [];
 
     // Tambahkan atribut 'namabarang' dalam $fillable
-    protected $fillable = ['namabarang'];
+    // protected $fillable = ['namabarang', ];
 
     public function stok()
     {

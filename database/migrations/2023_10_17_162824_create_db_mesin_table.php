@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDbmasMesinTable extends Migration
+class CreateDbMesinTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateDbmasMesinTable extends Migration
      */
     public function up()
     {
-        Schema::create('dbmas_mesin', function (Blueprint $table) {
+        Schema::create('db_mesin', function (Blueprint $table) {
             $table->increments('id');
             $table->string('namabarang');
             $table->unsignedBigInteger('id_tipe');
@@ -22,7 +22,6 @@ class CreateDbmasMesinTable extends Migration
             $table->string('jumlah');
             $table->unsignedBigInteger('id_satuan');
             $table->unsignedBigInteger('id_jenisbarang');
-            $table->string('status');
             $table->timestamps();
 
             $table->foreign('id_tipe')->references('id')->on('tipe')->onDelete('cascade');
@@ -38,6 +37,6 @@ class CreateDbmasMesinTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('dbmas_mesin');
+        Schema::dropIfExists('db_mesin');
     }
 }

@@ -41,27 +41,28 @@
                                     <th>
                                         <center>nama barang</center>
                                     </th>
-                                    <th>
+                                    {{-- <th>
                                         <center>tipe</center>
-                                    </th>
+                                    </th> --}}
                                     <th>
                                         <center>kode barang</center>
                                     </th>
-                                    <th>
+                                    {{-- <th>
                                         <center>tahun perolehan</center>
-                                    </th>
+                                    </th> --}}
                                     <th>
                                         <center>jumlah pengeluaran</center>
                                     </th>
                                     <th>
                                         <center>sisa stok</center>
                                     </th>
-                                    <th>
+                                    {{-- <th>
                                         <center>satuan</center>
-                                    </th>
-                                    <th>
+                                    </th> --}}
+                                    {{-- <th>
                                         <center>jenis barang</center>
-                                    </th>
+                                    </th> --}}
+                                    <th></th>
 
                                 </tr>
                             </thead>
@@ -73,6 +74,12 @@
                                     // $sat = DB::table('satuan')->find($data->id_satuan);
                                     // $stok = DB::table('dbmas_ti')->find($data->sisastok);
                                     $jb = DB::table('jenisbarang')->find($data->id_jenisbarang);
+                                    $kb = DB::table('db_ti')->find($data->id_kodebarang);
+                                    $idBarangTi = $data->id_kodebarang;
+                                    $jumlah = DB::table('db_ti')
+                                        ->where('id', $idBarangTi)
+                                        ->value('jumlah');
+
                                     ?>
                                     <tr>
                                         <td>
@@ -85,16 +92,16 @@
                                             <center>{{ $tb->namatipe }}</center>
                                         </td> --}}
                                         <td>
-                                            <center>{{ $data->id_kodebarang }}</center>
+                                            <center>{{ $kb->kodebarang }}</center>
                                         </td>
-                                        <td>
+                                        {{-- <td>
                                             <center>{{ $data->tahunperolehan }}</center>
-                                        </td>
+                                        </td> --}}
                                         <td>
                                             <center>{{ $data->jumlah_pengeluaran }}</center>
                                         </td>
                                         <td>
-                                            <center>{{ $data->sisastok }}</center>
+                                            <center>{{ $jumlah }}</center>
                                         </td>
 
                                         {{-- <td>

@@ -2,20 +2,21 @@
 
 @section('user')
 
-    <div class="main-content">
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
 
-        @if (session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-        @endif
-        <div class="section__content section__content--p30">
-            <div class="container-fluid">
+    <div class="section__content section__content--p30">
+        <div class="container-fluid">
+            <div class="main-content">
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
                 <div class="row">
                     <div class="col-md-12">
                         <div class="overview-wrap">

@@ -18,7 +18,14 @@ class BarangMasukController extends Controller
 
     public function add()
     {
-        $generatedCode = 'BRG-' . Str::random(8);
+
+        // Mengambil nomor urutan terakhir dari basis data
+        $lastItem = DB::table('barangmasuk')->orderBy('id', 'desc')->first();
+
+        // Menghitung nomor urutan berikutnya
+        $nextNumber = ($lastItem) ? $lastItem->id + 1 : 1;
+
+        $generatedCode = 'BRG-' . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
         $tipe = DB::table('tipe')->get();
         $satuan = DB::table('satuan')->get();
         $jur = DB::table('jurusan')->get();

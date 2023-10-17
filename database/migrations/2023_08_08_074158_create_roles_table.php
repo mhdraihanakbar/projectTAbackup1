@@ -18,13 +18,6 @@ class CreateRolesTable extends Migration
             $table->string('namarole')->nullable();
             $table->timestamps();
         });
-
-        DB::table('roles')->insert([
-            ['namarole' => 'Administrator'],
-            ['namarole' => 'Petugas Gudang'],
-            ['namarole' => 'Simak BMN'],
-            ['namarole' => 'Kasubag TU']
-        ]);
     }
 
     /**

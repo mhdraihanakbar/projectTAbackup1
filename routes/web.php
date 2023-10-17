@@ -21,8 +21,18 @@ Route::get('/', function () {
 Auth::routes();
 
 
+Route::middleware(['auth', 'CekRole:Administrator,'])->group(function () {
+});
+
+Route::middleware(['auth', 'CekRole:Petugas Gudang,'])->group(function () {
+    Route::get('/user', 'Admin\UserController@read')->name('user');
+    Route::get('/admin/user', 'Admin\UserController@read')->name('user');
+    Route::get('/admin/user/add', 'Admin\UserController@add')->name('user');
+    Route::post('/admin/user/create', 'Admin\UserController@create')->name('user');
+});
 
 // Route::group(['middleware' => ['auth', 'cekrole:1']], function () {
+
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -30,10 +40,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/role', 'Admin\RoleController@read')->name('role');
 
 // USER
-Route::get('/user', 'Admin\UserController@read')->name('user');
-Route::get('/admin/user', 'Admin\UserController@read')->name('user');
-Route::get('/admin/user/add', 'Admin\UserController@add')->name('user');
-Route::post('/admin/user/create', 'Admin\UserController@create')->name('user');
+
 
 // SUPPLIER
 Route::get('/supplier', 'Admin\SupplierController@read')->name('supplier');
@@ -83,7 +90,7 @@ Route::get('/admin/barangkeluar/ti', 'Admin\BarangkeluarController@read')->name(
 Route::get('/admin/barangkeluar/ti/add', 'Admin\BarangkeluarController@add')->name('barangkeluar');
 Route::post('/admin/barangkeluar/ti/create', 'Admin\BarangkeluarController@create')->name('get.barang');
 
-// BARANG MASUK JURUSAN
+// BARANG MASUK JURUSAN TI
 Route::get('/barangmasukjurusan/ti', 'Admin\BarangMasukJurusanController@read')->name('barangmasukjurusan');
 Route::get('/admin/barangmasukjurusan/ti', 'Admin\BarangMasukJurusanController@read')->name('barangmasukjurusan');
 Route::get('/admin/barangmasukjurusan/ti/add', 'Admin\BarangMasukJurusanController@add')->name('barangmasukjurusan');
@@ -93,4 +100,23 @@ Route::get('/admin/terimabarangmasuk/{id}', 'Admin\BarangMasukJurusanController@
 // BARANG MASUK JURUSAN
 Route::get('/databarang/ti', 'Admin\BarangMasukJurusanController@databarangti')->name('barangbarangti');
 Route::get('/admin/databarang/ti', 'Admin\BarangMasukJurusanController@databarangti')->name('barangbarangti');
-// });
+
+
+
+
+// BARANG MASUK JURUSAN MESIN
+Route::get('/barangmasuk/mesin', 'PetugasGudangMesin\BarangMasukController@read')->name('barangmasukjurusanmesin');
+
+Route::get('/databarang/mesin', 'PetugasGudangMesin\BarangMasukController@databarangmesin')->name('barangmesin');
+
+Route::get('/barangkeluar/mesin', 'PetugasGudangMesin\BarangkeluarController@read')->name('barangkeluar');
+Route::get('/admin/barangkeluar/mesin', 'PetugasGudangMesin\BarangkeluarController@read')->name('barangkeluar');
+Route::get('/admin/barangkeluar/mesin/add', 'PetugasGudangMesin\BarangkeluarController@add')->name('barangkeluar');
+Route::post('/admin/barangkeluar/mesin/create', 'PetugasGudangMesin\BarangkeluarController@create')->name('get.barang.mesin');
+
+Route::get('/admin/terimabarangmasuk/{id}', 'PetugasGudangMesin\BarangMasukController@terima')->name('terimabarangmasukjurusan');
+
+// Route::get('/admin/barangmasuk/mesin', 'PetugasGudangMesin\BarangMasukJurusanController@read')->name('barangmasukjurusanmesin');
+// Route::get('/admin/barangmasuk/mesin/add', 'PetugasGudangMesin\BarangMasukJurusanController@add')->name('barangmasukjurusanmesin');
+// Route::post('/admin/barangmasuk/mesin/create', 'PetugasGudangMesin\BarangMasukJurusanController@create')->name('barangmasukjurusanmesin');
+// Route::get('/admin/terimabarangmasuk/{id}', 'PetugasGudangMesin\BarangMasukJurusanController@terima')->name('terimabarangmasukjurusanmesin');

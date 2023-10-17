@@ -1,4 +1,4 @@
-@include('layouts.sidebar', ['activePage' => 'petugasgudangti'])
+@include('layouts.sidebar', ['activePage' => 'petugasgudangmesin'])
 
 @section('user')
 
@@ -8,7 +8,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="overview-wrap">
-                            <h2 class="title-1">Data Barang Masuk Jurusan</h2>
+                            <h2 class="title-1">Data Barang Masuk Jurusan Mesin</h2>
                         </div>
                     </div>
                 </div>
@@ -66,7 +66,7 @@
                             </thead>
                             <tbody>
                                 <?php $no = 1; ?>
-                                @foreach ($barangmasukjurusan as $data)
+                                @foreach ($barangmasuk as $data)
                                     <?php
                                     // $tb = DB::table('tipe')->find($data->id_tipe);
                                     $sat = DB::table('satuan')->find($data->id_satuan);
